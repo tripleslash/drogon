@@ -94,7 +94,7 @@ class DROGON_EXPORT DrClassMap
         static_assert(std::is_base_of<DrObjectBase, T>::value,
                       "T must be a sub-class of DrObjectBase");
         static auto const singleton =
-            std::dynamic_pointer_cast<T>(getSingleInstance(T::classTypeName()));
+            std::static_pointer_cast<T>(getSingleInstance(T::classTypeName()));
         assert(singleton);
         return singleton;
     }
