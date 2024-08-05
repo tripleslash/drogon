@@ -282,61 +282,61 @@ void HttpRequestImpl::appendToBuffer(trantor::MsgBuffer *output) const
 
     if (!passThrough_ && contentType_ == CT_MULTIPART_FORM_DATA)
     {
-        auto mReq = dynamic_cast<const HttpFileUploadRequest *>(this);
-        if (mReq)
-        {
-            for (auto &param : mReq->getParameters())
-            {
-                content.append("--");
-                content.append(mReq->boundary());
-                content.append("\r\n");
-                content.append("content-disposition: form-data; name=\"");
-                content.append(param.first);
-                content.append("\"\r\n\r\n");
-                content.append(param.second);
-                content.append("\r\n");
-            }
-            for (auto &file : mReq->files())
-            {
-                content.append("--");
-                content.append(mReq->boundary());
-                content.append("\r\n");
-                content.append("content-disposition: form-data; name=\"");
-                content.append(file.itemName());
-                content.append("\"; filename=\"");
-                content.append(file.fileName());
-                content.append("\"");
-                if (file.contentType() != CT_NONE)
-                {
-                    content.append("\r\n");
+        // auto mReq = dynamic_cast<const HttpFileUploadRequest *>(this);
+        // if (mReq)
+        // {
+        //     for (auto &param : mReq->getParameters())
+        //     {
+        //         content.append("--");
+        //         content.append(mReq->boundary());
+        //         content.append("\r\n");
+        //         content.append("content-disposition: form-data; name=\"");
+        //         content.append(param.first);
+        //         content.append("\"\r\n\r\n");
+        //         content.append(param.second);
+        //         content.append("\r\n");
+        //     }
+        //     for (auto &file : mReq->files())
+        //     {
+        //         content.append("--");
+        //         content.append(mReq->boundary());
+        //         content.append("\r\n");
+        //         content.append("content-disposition: form-data; name=\"");
+        //         content.append(file.itemName());
+        //         content.append("\"; filename=\"");
+        //         content.append(file.fileName());
+        //         content.append("\"");
+        //         if (file.contentType() != CT_NONE)
+        //         {
+        //             content.append("\r\n");
 
-                    auto &type = contentTypeToMime(file.contentType());
-                    content.append("content-type: ");
-                    content.append(type.data(), type.length());
-                }
-                content.append("\r\n\r\n");
-                std::ifstream infile(utils::toNativePath(file.path()),
-                                     std::ifstream::binary);
-                if (!infile)
-                {
-                    LOG_ERROR << file.path() << " not found";
-                }
-                else
-                {
-                    std::streambuf *pbuf = infile.rdbuf();
-                    std::streamsize filesize = pbuf->pubseekoff(0, infile.end);
-                    pbuf->pubseekoff(0, infile.beg);  // rewind
-                    std::string str;
-                    str.resize(filesize);
-                    pbuf->sgetn(&str[0], filesize);
-                    content.append(std::move(str));
-                }
-                content.append("\r\n");
-            }
-            content.append("--");
-            content.append(mReq->boundary());
-            content.append("--");
-        }
+        //             auto &type = contentTypeToMime(file.contentType());
+        //             content.append("content-type: ");
+        //             content.append(type.data(), type.length());
+        //         }
+        //         content.append("\r\n\r\n");
+        //         std::ifstream infile(utils::toNativePath(file.path()),
+        //                              std::ifstream::binary);
+        //         if (!infile)
+        //         {
+        //             LOG_ERROR << file.path() << " not found";
+        //         }
+        //         else
+        //         {
+        //             std::streambuf *pbuf = infile.rdbuf();
+        //             std::streamsize filesize = pbuf->pubseekoff(0, infile.end);
+        //             pbuf->pubseekoff(0, infile.beg);  // rewind
+        //             std::string str;
+        //             str.resize(filesize);
+        //             pbuf->sgetn(&str[0], filesize);
+        //             content.append(std::move(str));
+        //         }
+        //         content.append("\r\n");
+        //     }
+        //     content.append("--");
+        //     content.append(mReq->boundary());
+        //     content.append("--");
+        // }
     }
     assert(!(!content.empty() && !content_.empty()));
     if (!passThrough_)

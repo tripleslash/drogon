@@ -43,13 +43,13 @@ static inline HttpResponsePtr genHttpResponse(const std::string &viewName,
                                               const HttpViewData &data,
                                               const HttpRequestPtr &req)
 {
-    auto templ = DrTemplateBase::newTemplate(viewName);
-    if (templ)
-    {
-        auto res = HttpResponse::newHttpResponse();
-        res->setBody(templ->genText(data));
-        return res;
-    }
+    // auto templ = DrTemplateBase::newTemplate(viewName);
+    // if (templ)
+    // {
+    //     auto res = HttpResponse::newHttpResponse();
+    //     res->setBody(templ->genText(data));
+    //     return res;
+    // }
     return drogon::HttpResponse::newNotFoundResponse(req);
 }
 }  // namespace drogon
