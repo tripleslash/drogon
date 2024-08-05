@@ -27,6 +27,7 @@
 #include <memory>
 #include <sstream>
 #include <string>
+#include <string_view>
 
 namespace drogon
 {
@@ -228,7 +229,7 @@ class HttpBinder : public HttpBinderBase
     {
         static_assert(traits::isHTTPFunction,
                       "Your API handler function interface is wrong!");
-        handlerName_ = DrClassMap::nameOf<FUNCTION>();
+        handlerName_ = std::string{ DrClassMap::nameOf<FUNCTION>() };
     }
 
     void test()

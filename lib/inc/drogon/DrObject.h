@@ -116,7 +116,7 @@ class DrObject : public virtual DrObjectBase
 
         const std::string &className() const
         {
-            static std::string clsName = DrClassMap::nameOf<T>();
+            static std::string clsName{ DrClassMap::nameOf<T>() };
             return clsName;
         }
 
