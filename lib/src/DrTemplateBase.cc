@@ -52,12 +52,12 @@ std::shared_ptr<DrTemplateBase> DrTemplateBase::newTemplate(
             }
             ++pos;
         }
-        return std::shared_ptr<DrTemplateBase>(dynamic_cast<DrTemplateBase *>(
+        return std::shared_ptr<DrTemplateBase>(static_cast<DrTemplateBase *>(
             drogon::DrClassMap::newObject(newName)));
     }
     else
     {
-        return std::shared_ptr<DrTemplateBase>(dynamic_cast<DrTemplateBase *>(
+        return std::shared_ptr<DrTemplateBase>(static_cast<DrTemplateBase *>(
             drogon::DrClassMap::newObject(templateName)));
     }
 }

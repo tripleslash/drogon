@@ -213,7 +213,7 @@ class DROGON_EXPORT HttpAppFramework : public trantor::NonCopyable
                       "PluginBase");
         assert(isRunning());
         static auto pluginPtr =
-            dynamic_cast<T *>(getPlugin(T::classTypeName()));
+            static_cast<T *>(getPlugin(T::classTypeName()));
         return pluginPtr;
     }
 
