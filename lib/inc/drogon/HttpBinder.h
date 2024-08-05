@@ -95,7 +95,7 @@ T getHandlerArgumentValue(std::string &&p)
     }
     else
     {
-        LOG_ERROR << "Can't convert string to type " << typeid(T).name();
+        LOG_ERROR << "Can't convert string to type";
         return T();
     }
 }
@@ -228,7 +228,7 @@ class HttpBinder : public HttpBinderBase
     {
         static_assert(traits::isHTTPFunction,
                       "Your API handler function interface is wrong!");
-        handlerName_ = DrClassMap::demangle(typeid(FUNCTION).name());
+        handlerName_ = DrClassMap::nameOf<FUNCTION>();
     }
 
     void test()

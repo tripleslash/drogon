@@ -75,6 +75,12 @@ class DROGON_EXPORT DrClassMap
     static const std::shared_ptr<DrObjectBase> &getSingleInstance(
         const std::string &className);
 
+    template <class T>
+    [[nodiscard]] static inline constexpr std::string_view nameOf()
+    {
+        return std::string_view{ __PRETTY_FUNCTION__ };
+    }
+
     /**
      * @brief Get the singleton T type object
      *

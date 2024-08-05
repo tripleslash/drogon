@@ -116,9 +116,8 @@ class DrObject : public virtual DrObjectBase
 
         const std::string &className() const
         {
-            static std::string className =
-                DrClassMap::demangle(typeid(T).name());
-            return className;
+            static std::string clsName = DrClassMap::nameOf<T>();
+            return clsName;
         }
 
         template <typename D>
