@@ -30,6 +30,7 @@
 #include <unordered_map>
 #include <optional>
 #include <string_view>
+#include <exception>
 
 namespace drogon
 {
@@ -43,9 +44,8 @@ using HttpRequestPtr = std::shared_ptr<HttpRequest>;
 template <typename T>
 T fromRequest(const HttpRequest &)
 {
-    LOG_ERROR << "You must specialize the fromRequest template for the type of "
-              << DrClassMap::demangle(typeid(T).name());
-    exit(1);
+    LOG_ERROR << "You must specialize the fromRequest template for the type";
+    std::terminate();
 }
 
 /**
@@ -56,9 +56,8 @@ T fromRequest(const HttpRequest &)
 template <typename T>
 HttpRequestPtr toRequest(T &&)
 {
-    LOG_ERROR << "You must specialize the toRequest template for the type of "
-              << DrClassMap::demangle(typeid(T).name());
-    exit(1);
+    LOG_ERROR << "You must specialize the fromRequest template for the type";
+    std::terminate();
 }
 
 template <>

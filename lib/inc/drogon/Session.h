@@ -49,11 +49,11 @@ class Session
             auto it = sessionMap_.find(key);
             if (it != sessionMap_.end())
             {
-                if (typeid(T) == it->second.type())
+                try
                 {
                     return *(std::any_cast<T>(&(it->second)));
                 }
-                else
+                catch (const std::bad_any_cast&)
                 {
                     LOG_ERROR << "Bad type";
                 }
@@ -78,11 +78,11 @@ class Session
             auto it = sessionMap_.find(key);
             if (it != sessionMap_.end())
             {
-                if (typeid(T) == it->second.type())
+                try
                 {
                     return *(std::any_cast<T>(&(it->second)));
                 }
-                else
+                catch (const std::bad_any_cast&)
                 {
                     LOG_ERROR << "Bad type";
                 }
@@ -111,11 +111,11 @@ class Session
         auto it = sessionMap_.find(key);
         if (it != sessionMap_.end())
         {
-            if (typeid(T) == it->second.type())
+            try
             {
                 handler(*(std::any_cast<T>(&(it->second))));
             }
-            else
+            catch (const std::bad_any_cast&)
             {
                 LOG_ERROR << "Bad type";
             }

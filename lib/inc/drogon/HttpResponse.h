@@ -27,6 +27,7 @@
 #include <memory>
 #include <string>
 #include <string_view>
+#include <exception>
 
 namespace drogon
 {
@@ -41,10 +42,8 @@ using HttpResponsePtr = std::shared_ptr<HttpResponse>;
 template <typename T>
 T fromResponse(const HttpResponse &resp)
 {
-    LOG_ERROR
-        << "You must specialize the fromResponse template for the type of "
-        << DrClassMap::demangle(typeid(T).name());
-    exit(1);
+    LOG_ERROR << "You must specialize the fromResponse template for the type";
+    std::terminate();
 }
 
 /**
@@ -55,9 +54,8 @@ T fromResponse(const HttpResponse &resp)
 template <typename T>
 HttpResponsePtr toResponse(T &&)
 {
-    LOG_ERROR << "You must specialize the toResponse template for the type of "
-              << DrClassMap::demangle(typeid(T).name());
-    exit(1);
+    LOG_ERROR << "You must specialize the toResponse template for the type";
+    std::terminate();
 }
 
 template <>

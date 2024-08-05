@@ -43,11 +43,11 @@ class Attributes
         auto it = attributesMap_.find(key);
         if (it != attributesMap_.end())
         {
-            if (typeid(T) == it->second.type())
+            try
             {
                 return *(std::any_cast<T>(&(it->second)));
             }
-            else
+            catch (const std::bad_any_cast&)
             {
                 LOG_ERROR << "Bad type";
             }
