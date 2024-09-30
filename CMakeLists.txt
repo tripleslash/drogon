@@ -149,6 +149,8 @@ elseif (WIN32)
     target_link_libraries(${PROJECT_NAME} PRIVATE shlwapi ws2_32 iphlpapi)
 endif ()
 
+target_compile_definitions(${PROJECT_NAME} PUBLIC -D_TIME_BITS=64 -D_FILE_OFFSET_BITS=64 -D_LARGEFILE_SOURCE -D_LARGE_FILES -D_DEFAULT_SOURCE)
+
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake_modules/)
 
 find_package(Filesystem COMPONENTS Final)
